@@ -1,9 +1,9 @@
 === WP CDN Rewrite ===
-Contributors: voceplatforms, chrisscott, prettyboymp
+Contributors: voceplatforms, chrisscott, prettyboymp, kevinlangleyjr
 Tags: cdn, rewrite
 Requires at least: 3.3
 Tested up to: 3.8
-Stable tag: 0.1.0
+Stable tag: 0.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,3 +22,10 @@ If using [Composer](http://getcomposer.org) for dependency management, you can a
 1. Upload `cdn-rewrite` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Once the plugin has been activated, navigate to the CDN Rewrite settings page and set the appropriate settings.
+
+== Changelog ==
+= 0.1.1 =
+*Fixing issue with URLs without a path part.
+
+= 0.1.0 =
+*Initial version.
