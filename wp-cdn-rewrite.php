@@ -3,7 +3,7 @@
 Plugin Name: WP CDN Rewrite
 Plugin URI: http://voceconnect.com/
 Description: Rewrites asset URLs to CDN
-Version: 0.1.3
+Version: 0.1.4
 Author: Chris Scott, Michael Pretty, Kevin Langley
 Author URI: http://voceconnect.com/
 */
@@ -46,7 +46,7 @@ if( !class_exists( 'CDN_Rewrite' ) ){
 
 		public function initialize() {
 			if( !class_exists( 'Voce_Settings_API' ) )
-	 			_doing_it_wrong( __CLASS__, 'The Voce Settings API plugin must be active for the CDN Rewrite plugin to work' );
+	 			return _doing_it_wrong( __CLASS__, 'The Voce Settings API plugin must be active for the CDN Rewrite plugin to work', NULL );
 
 			$this->add_options_page();
 			if ('' == $this->file_extensions || '' == $this->cdn_root_url) {
@@ -204,6 +204,8 @@ if( !class_exists( 'CDN_Rewrite' ) ){
 		}
 
 		private function get_version($url) {
+			$version = false;
+
 			if(0 === strpos($url, $this->root_url)) {
 				$parts = parse_url($url);
 				foreach( array( 'scheme', 'host', 'path' ) as $part ){
@@ -212,12 +214,12 @@ if( !class_exists( 'CDN_Rewrite' ) ){
 				}
 
 				$file_path = str_replace( site_url('/'), ABSPATH, $parts['scheme'] . '://' . $parts['host'] . $parts['path'] );
-				if(	!($version = @filemtime($file_path)) ) {
+
+				if( file_exists( $file_path ) && !($version = @filemtime($file_path)) ) {
 					$version = $this->default_version;
 				}
-				return $version;
 			}
-			return false;
+			return $version;
 		}
 
 		public function replace_version($src) {
